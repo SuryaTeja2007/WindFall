@@ -10,14 +10,22 @@ public class UIManager : MonoBehaviour
     public GameObject pauseButton;
 
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI heightText;
+
+    public Transform player;
 
     private float timeElapsed = 0f;
     private bool timerRunning = false;
     private bool gamePaused = false;
 
+    private float startHeight;
+
     void Start()
     {
         Time.timeScale = 0f;
+
+        if (player != null)
+            startHeight = player.position.y;
 
         if (startScreen != null)
             startScreen.SetActive(true);
@@ -35,6 +43,12 @@ public class UIManager : MonoBehaviour
         {
             timerText.text = "00:00";
             timerText.gameObject.SetActive(false);
+        }
+
+        if (heightText != null)
+        {
+            heightText.text = "Height: 0m";
+            heightText.gameObject.SetActive(false);
         }
     }
 
@@ -60,8 +74,17 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        // Height Meter
+        if (player != null && heightText != null)
+        {
+            float height = Mathf.Max(0, player.position.y - startHeight);
+            heightText.text = "Height: " + Mathf.RoundToInt(height) + "m";
+        }
+
         // ESC Pause / Resume
-        if (Input.GetKeyDown(KeyCode.Escape) && !startScreen.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            startScreen != null &&
+            !startScreen.activeSelf)
         {
             if (gamePaused)
                 ResumeGame();
@@ -80,6 +103,9 @@ public class UIManager : MonoBehaviour
 
         if (timerText != null)
             timerText.gameObject.SetActive(true);
+
+        if (heightText != null)
+            heightText.gameObject.SetActive(true);
 
         timerRunning = true;
         gamePaused = false;
