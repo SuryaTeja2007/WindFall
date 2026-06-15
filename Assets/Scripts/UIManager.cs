@@ -27,39 +27,20 @@ public class UIManager : MonoBehaviour
         if (player != null)
             startHeight = player.position.y;
 
-        if (startScreen != null)
-            startScreen.SetActive(true);
+        startScreen.SetActive(true);
+        winScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        pauseButton.SetActive(false);
 
-        if (winScreen != null)
-            winScreen.SetActive(false);
+        timerText.gameObject.SetActive(false);
+        heightText.gameObject.SetActive(false);
 
-        if (pauseScreen != null)
-            pauseScreen.SetActive(false);
-
-        if (pauseButton != null)
-            pauseButton.SetActive(false);
-
-        if (timerText != null)
-        {
-            timerText.text = "00:00";
-            timerText.gameObject.SetActive(false);
-        }
-
-        if (heightText != null)
-        {
-            heightText.text = "Height: 0m";
-            heightText.gameObject.SetActive(false);
-        }
+        timerText.text = "00:00";
+        heightText.text = "Height: 0m";
     }
 
     void Update()
     {
-        // Test Win Screen with P key
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ShowWinScreen();
-        }
-
         // Timer
         if (timerRunning)
         {
@@ -68,23 +49,18 @@ public class UIManager : MonoBehaviour
             int minutes = Mathf.FloorToInt(timeElapsed / 60);
             int seconds = Mathf.FloorToInt(timeElapsed % 60);
 
-            if (timerText != null)
-            {
-                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            }
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
 
         // Height Meter
-        if (player != null && heightText != null)
+        if (player != null)
         {
             float height = Mathf.Max(0, player.position.y - startHeight);
             heightText.text = "Height: " + Mathf.RoundToInt(height) + "m";
         }
 
         // ESC Pause / Resume
-        if (Input.GetKeyDown(KeyCode.Escape) &&
-            startScreen != null &&
-            !startScreen.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape) && !startScreen.activeSelf)
         {
             if (gamePaused)
                 ResumeGame();
@@ -95,18 +71,16 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (startScreen != null)
-            startScreen.SetActive(false);
+        startScreen.SetActive(false);
+        winScreen.SetActive(false);
+        pauseScreen.SetActive(false);
 
-        if (pauseButton != null)
-            pauseButton.SetActive(true);
+        pauseButton.SetActive(true);
 
-        if (timerText != null)
-            timerText.gameObject.SetActive(true);
+        timerText.gameObject.SetActive(true);
+        heightText.gameObject.SetActive(true);
 
-        if (heightText != null)
-            heightText.gameObject.SetActive(true);
-
+        timeElapsed = 0f;
         timerRunning = true;
         gamePaused = false;
 
@@ -115,8 +89,7 @@ public class UIManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (pauseScreen != null)
-            pauseScreen.SetActive(true);
+        pauseScreen.SetActive(true);
 
         timerRunning = false;
         gamePaused = true;
@@ -126,8 +99,7 @@ public class UIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (pauseScreen != null)
-            pauseScreen.SetActive(false);
+        pauseScreen.SetActive(false);
 
         timerRunning = true;
         gamePaused = false;
@@ -139,11 +111,11 @@ public class UIManager : MonoBehaviour
     {
         timerRunning = false;
 
-        if (pauseButton != null)
-            pauseButton.SetActive(false);
+        startScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        pauseButton.SetActive(false);
 
-        if (winScreen != null)
-            winScreen.SetActive(true);
+        winScreen.SetActive(true);
 
         Time.timeScale = 0f;
     }
@@ -151,9 +123,6 @@ public class UIManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex
-        );
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
