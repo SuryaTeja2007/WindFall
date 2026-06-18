@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 613010658668031377}
   - component: {fileID: 3278485975625932969}
   - component: {fileID: 7818453853804138879}
+  - component: {fileID: -4566683334127181675}
   m_Layer: 0
   m_Name: LP_Diamond
   m_TagString: Untagged
@@ -90,3 +91,24 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-4566683334127181675
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600867071870539849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.016968768, y: 0.014797274, z: 0.01762167}
+  m_Center: {x: -0.0003460953, y: 0, z: 0}
