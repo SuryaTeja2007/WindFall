@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
 
         timerText.text = "00:00";
         heightText.text = "Height: 0m";
+
     }
 
     void Update()
@@ -85,6 +86,8 @@ public class UIManager : MonoBehaviour
         gamePaused = false;
 
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void PauseGame()
@@ -95,6 +98,8 @@ public class UIManager : MonoBehaviour
         gamePaused = true;
 
         Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ResumeGame()
@@ -105,6 +110,8 @@ public class UIManager : MonoBehaviour
         gamePaused = false;
 
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ShowWinScreen()
