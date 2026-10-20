@@ -8,4 +8,4 @@ A 3D platformer built in Unity, featuring throwable bombs and physics-based trav
 
 ### Environment Assets
 
-![WindFall environment and assets](Assets/Windfall-Assets.png)
+![WindFall environment and assets](Assets/Prefabs/Windfall-Assets.png)
